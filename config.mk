@@ -20,7 +20,7 @@ LIBS = -L$(X11LIB) -lm -lrt -lX11 -lutil -lXft \
 
 # flags
 CPPFLAGS = -DVERSION=\"$(VERSION)\" -D_XOPEN_SOURCE=600
-STCFLAGS = $(INCS) $(CPPFLAGS) $(CFLAGS)
+STCFLAGS = -march=native -mtune=native $(INCS) $(CPPFLAGS) $(CFLAGS)
 STLDFLAGS = $(LIBS) $(LDFLAGS)
 
 # OpenBSD:
@@ -30,4 +30,4 @@ STLDFLAGS = $(LIBS) $(LDFLAGS)
 #       `pkg-config --libs freetype2`
 
 # compiler and linker
-# CC = c99
+CC = clang

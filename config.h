@@ -6,10 +6,11 @@
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
 // static char *font = "Inconsolata:autohing=true:antialias=true:size=14";
-static char *font = "Iosevka Term:size=12";
+// static char *font = "Iosevka Term:size=12";
+static char *font = "Share Tech Mono:size=12:antialias=true:autohint=true";
 // static char *font = "Inconsolata:autohing=true:antialias=true:size=14";
 // static char *font = "Hack:autohint=true:antialias=true:size=12";
-static int borderpx = 2;
+static int borderpx = 10;
 
 /*
  * What program is execed by st depends of these precedence rules:
@@ -35,7 +36,7 @@ static float chscale = 1.0;
  *
  * More advanced example: " `'\"()[]{}"
  */
-char *worddelimiters = " \"(),.:;<>[]{}|'`¬";
+char *worddelimiters = " \"(),:;<>[]{}|'`¬";
 
 /* selection timeouts (in milliseconds) */
 static unsigned int doubleclicktimeout = 300;
@@ -160,6 +161,11 @@ MouseKey mkeys[] = {
 	{ Button5,              ShiftMask,      kscrolldown,    {.i =  1} },
 };
 
+static char *openurlcmd[] = { "/bin/sh", "-c",
+    "xurls | dmenu -l 10 -w $WINDOWID | xargs -r xdg-open",
+    "externalpipe", NULL };
+
+
 /* Internal keyboard shortcuts. */
 #define MODKEY Mod1Mask
 #define TERMMOD (ControlMask|ShiftMask)
@@ -175,12 +181,19 @@ static Shortcut shortcuts[] = {
 	{ TERMMOD,              XK_Home,        zoomreset,      {.f =  0} },
 	{ TERMMOD,              XK_C,           clipcopy,       {.i =  0} },
 	{ TERMMOD,              XK_V,           clippaste,      {.i =  0} },
+	{ ShiftMask,            XK_Insert,      clippaste,      {.i =  0} },
+	{ MODKEY|ShiftMask,     XK_Insert,      clippaste,      {.i =  0} },
 	{ TERMMOD,              XK_Y,           selpaste,       {.i =  0} },
 	{ TERMMOD,              XK_Num_Lock,    numlock,        {.i =  0} },
 	{ TERMMOD,              XK_I,           iso14755,       {.i =  0} },
 	{ MODKEY,               XK_l,           copyurl,        {.i =  0} },
+	{ TERMMOD,              XK_U,           externalpipe,   { .v = openurlcmd } },
 	{ ShiftMask,            XK_Page_Up,     kscrollup,      {.i = -1} },
 	{ ShiftMask,            XK_Page_Down,   kscrolldown,    {.i = -1} },
+	{ MODKEY|ShiftMask,     XK_K,           kscrollup,      {.i =  1} },
+	{ MODKEY|ShiftMask,     XK_J,           kscrolldown,    {.i =  1} },
+	{ MODKEY,               XK_u,           kscrollup,      {.i = -1} },
+	{ MODKEY,               XK_d,           kscrolldown,    {.i = -1} },
 	{ MODKEY,               XK_o,           opencopied,     {.v = "firefox"} },
 };
 
