@@ -239,6 +239,7 @@ static char *opt_name  = NULL;
 static char *opt_title = NULL;
 
 static int oldbutton = 3; /* button event on startup: 3 = release */
+static int bellon = 0;    /* visual bell status */
 
 void
 clipcopy(const Arg *dummy)
@@ -409,6 +410,7 @@ bpress(XEvent *e)
 {
 	struct timespec now;
 	MouseShortcut *ms;
+	MouseKey *mk;
 	int snap;
 
 	if (IS_SET(MODE_MOUSE) && !(e->xbutton.state & forceselmod)) {
@@ -420,6 +422,14 @@ bpress(XEvent *e)
 		if (e->xbutton.button == ms->b
 				&& match(ms->mask, e->xbutton.state)) {
 			ttywrite(ms->s, strlen(ms->s), 1);
+			return;
+		}
+	}
+
+	for (mk = mkeys; mk < mkeys + LEN(mkeys); mk++) {
+		if (e->xbutton.button == mk->b
+				&& match(mk->mask, e->xbutton.state)) {
+			mk->func(&mk->arg);
 			return;
 		}
 	}
@@ -627,6 +637,8 @@ setsel(char *str, Time t)
 	XSetSelectionOwner(xw.dpy, XA_PRIMARY, xw.win, t);
 	if (XGetSelectionOwner(xw.dpy, XA_PRIMARY) != xw.win)
 		selclear();
+
+	clipcopy(NULL);
 }
 
 void
@@ -1617,6 +1629,15 @@ xbell(void)
 		xseturgency(1);
 	if (bellvolume)
 		XkbBell(xw.dpy, xw.win, bellvolume, (Atom)NULL);
+
+	/* visual bell*/
+	if (!bellon) {
+		bellon = 1;
+		MODBIT(win.mode, !IS_SET(MODE_REVERSE), MODE_REVERSE);
+		redraw();
+		XFlush(xw.dpy);
+		MODBIT(win.mode, !IS_SET(MODE_REVERSE), MODE_REVERSE);
+	}
 }
 
 void
@@ -1843,7 +1864,11 @@ run(void)
 					(handler[ev.type])(&ev);
 			}
 
-			draw();
+			if (bellon) {
+				bellon = 0;
+				redraw();
+			}
+			else draw();
 			XFlush(xw.dpy);
 
 			if (xev && !FD_ISSET(xfd, &rfd))
@@ -1952,4 +1977,26 @@ run:
 	run();
 
 	return 0;
+}
+
+void
+opencopied(const Arg *arg)
+{
+	const size_t max_cmd = 2048;
+	const char *clip = xsel.clipboard;
+	if(!clip) {
+		fprintf(stderr, "Warning: nothing copied to clipboard\n");
+		return;
+	}
+
+	/* account for space/quote (3) and \0 (1) */
+	char cmd[max_cmd + strlen(clip) + 4];
+	strncpy(cmd, (char *)arg->v, max_cmd);
+	cmd[max_cmd] = '\0';
+
+	strcat(cmd, " \"");
+	strcat(cmd, clip);
+	strcat(cmd, "\"");
+
+	system(cmd);
 }
