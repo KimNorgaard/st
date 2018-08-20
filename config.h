@@ -10,7 +10,7 @@
 static char *font = "Share Tech Mono:size=12:antialias=true:autohint=true";
 // static char *font = "Inconsolata:autohing=true:antialias=true:size=14";
 // static char *font = "Hack:autohint=true:antialias=true:size=12";
-static int borderpx = 10;
+static int borderpx = 12;
 
 /*
  * What program is execed by st depends of these precedence rules:
