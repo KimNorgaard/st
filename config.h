@@ -7,7 +7,8 @@
  */
 // static char *font = "Inconsolata:autohing=true:antialias=true:size=14";
 // static char *font = "Iosevka Term:size=12";
-static char *font = "Share Tech Mono:size=12:antialias=true:autohint=true";
+// static char *font = "Share Tech Mono:size=12:antialias=true:autohint=true";
+static char *font = "monospace:size=12";
 // static char *font = "Inconsolata:autohing=true:antialias=true:size=14";
 // static char *font = "Hack:autohint=true:antialias=true:size=12";
 static int borderpx = 12;
@@ -87,23 +88,82 @@ char *termname = "st-256color";
 unsigned int tabspaces = 8;
 
 /* Terminal colors (16 first used in escape sequence) */
+
+// defaults
+// static const char *colorname[] = {
+// 	#<{(| 8 normal colors |)}>#
+// 	"black",
+// 	"red3",
+// 	"green3",
+// 	"yellow3",
+// 	"blue2",
+// 	"magenta3",
+// 	"cyan3",
+// 	"gray90",
+//
+// 	#<{(| 8 bright colors |)}>#
+// 	"gray50",
+// 	"red",
+// 	"green",
+// 	"yellow",
+// 	"#5c5cff",
+// 	"magenta",
+// 	"cyan",
+// 	"white",
+//
+// 	[255] = 0,
+//
+// 	#<{(| more colors can be added after 255 to use with DefaultXX |)}>#
+// 	"#cccccc",
+// 	"#555555",
+// };
+
+// gruvbox
+// static const char *colorname[] = {
+// 	"#282828", #<{(| hard contrast: #1d2021 / soft contrast: #32302f |)}>#
+// 	"#cc241d",
+// 	"#98971a",
+// 	"#d79921",
+// 	"#458588",
+// 	"#b16286",
+// 	"#689d6a",
+// 	"#a89984",
+// 	"#928374",
+// 	"#fb4934",
+// 	"#b8bb26",
+// 	"#fabd2f",
+// 	"#83a598",
+// 	"#d3869b",
+// 	"#8ec07c",
+// 	"#ebdbb2",
+// };
+
 static const char *colorname[] = {
-	"#282828", /* hard contrast: #1d2021 / soft contrast: #32302f */
-	"#cc241d",
-	"#98971a",
-	"#d79921",
-	"#458588",
-	"#b16286",
-	"#689d6a",
-	"#a89984",
-	"#928374",
-	"#fb4934",
-	"#b8bb26",
-	"#fabd2f",
-	"#83a598",
-	"#d3869b",
-	"#8ec07c",
-	"#ebdbb2",
+	"black",
+	"#b21559",
+	"#59b215",
+	"#b2b215",
+	"#158db2",
+	"#b21598",
+	"#15a8b2",
+	"gray90",
+
+	"gray50",
+	"#e51b73",
+	"#73e51b",
+	"#e5e51b",
+	"#1bb6e5",
+	"#e51bc3",
+	"#1bd8e5",
+	"white",
+
+	[255] = 0,
+
+	/* more colors can be added after 255 to use with DefaultXX */
+	"#cccccc",
+	"#555555",
+  "#eeeeee",
+	"#114488",
 };
 
 
@@ -111,8 +171,8 @@ static const char *colorname[] = {
  * Default colors (colorname index)
  * foreground, background, cursor
  */
-unsigned int defaultfg = 15;
-unsigned int defaultbg = 0;
+unsigned int defaultfg = 258;
+unsigned int defaultbg = 259;
 static unsigned int defaultcs = 15;
 static unsigned int defaultrcs = 257;
 
@@ -177,12 +237,12 @@ static Shortcut shortcuts[] = {
 	{ ShiftMask,            XK_Print,       printscreen,    {.i =  0} },
 	{ XK_ANY_MOD,           XK_Print,       printsel,       {.i =  0} },
 	{ TERMMOD,              XK_Prior,       zoom,           {.f = +1} },
-	{ TERMMOD,              XK_Next,        zoom,           {.f = -1} },
+  { TERMMOD,              XK_Next,        zoom,           {.f = -1} },
 	{ TERMMOD,              XK_Home,        zoomreset,      {.f =  0} },
 	{ TERMMOD,              XK_C,           clipcopy,       {.i =  0} },
 	{ TERMMOD,              XK_V,           clippaste,      {.i =  0} },
-	{ ShiftMask,            XK_Insert,      clippaste,      {.i =  0} },
-	{ MODKEY|ShiftMask,     XK_Insert,      clippaste,      {.i =  0} },
+	{ TERMMOD         ,     XK_Insert,      clippaste,      {.i =  0} },
+	{ ShiftMask,            XK_Insert,      selpaste ,      {.i =  0} },
 	{ TERMMOD,              XK_Y,           selpaste,       {.i =  0} },
 	{ TERMMOD,              XK_Num_Lock,    numlock,        {.i =  0} },
 	{ TERMMOD,              XK_I,           iso14755,       {.i =  0} },
