@@ -138,6 +138,35 @@ unsigned int tabspaces = 8;
 // 	"#ebdbb2",
 // };
 
+// // fign
+// static const char *colorname[] = {
+// 	"black",
+// 	"#b21559",
+// 	"#59b215",
+// 	"#b2b215",
+// 	"#158db2",
+// 	"#b21598",
+// 	"#15a8b2",
+// 	"gray90",
+//
+// 	"gray50",
+// 	"#e51b73",
+// 	"#73e51b",
+// 	"#e5e51b",
+// 	"#1bb6e5",
+// 	"#e51bc3",
+// 	"#1bd8e5",
+// 	"white",
+//
+// 	[255] = 0,
+//
+// 	#<{(| more colors can be added after 255 to use with DefaultXX |)}>#
+// 	"#cccccc",
+// 	"#555555",
+// 	"#eeeeee",
+// 	"#114488",
+// };
+
 static const char *colorname[] = {
 	"black",
 	"#b21559",
@@ -162,8 +191,8 @@ static const char *colorname[] = {
 	/* more colors can be added after 255 to use with DefaultXX */
 	"#cccccc",
 	"#555555",
-  "#eeeeee",
-	"#114488",
+	"#eeeeee",
+	"#282828",
 };
 
 
