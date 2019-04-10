@@ -1,5 +1,5 @@
 pkgname=st
-pkgver=0.8.1
+pkgver=0.8.2
 pkgrel=1
 pkgdesc="My own fork of st"
 url="https://st.suckless.org/"
