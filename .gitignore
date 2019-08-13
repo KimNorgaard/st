@@ -1,0 +1,4 @@
+*.o
+pkg/
+st
+st-*.tar.xz
