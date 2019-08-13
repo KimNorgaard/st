@@ -174,7 +174,7 @@ static const char *colorname[] = {
 	"#cccccc",
 	"#555555",
 	"#eeeeee",
-	"#282828",
+	"#191919",
 };
 
 
