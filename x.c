@@ -440,11 +440,11 @@ void
 bpress(XEvent *e)
 {
 	struct timespec now;
-<<<<<<< HEAD
+/* <<<<<<< HEAD */
 	MouseShortcut *ms;
 	MouseKey *mk;
-=======
->>>>>>> d2b75db8d7519a20af8bf09e9c205507f9ff828c
+/* ======= */
+/* >>>>>>> d2b75db8d7519a20af8bf09e9c205507f9ff828c */
 	int snap;
 
 	if (IS_SET(MODE_MOUSE) && !(e->xbutton.state & forcemousemod)) {
