@@ -427,7 +427,8 @@ mouseaction(XEvent *e, uint release)
 	for (ms = mshortcuts; ms < mshortcuts + LEN(mshortcuts); ms++) {
 		if (ms->release == release &&
 		    ms->button == e->xbutton.button &&
-		    match(ms->mod, e->xbutton.state & ~forcemousemod)) {
+		    (match(ms->mod, e->xbutton.state) ||  /* exact or forced */
+		     match(ms->mod, e->xbutton.state & ~forcemousemod))) {
 			ms->func(&(ms->arg));
 			return 1;
 		}
@@ -1169,8 +1170,8 @@ xinit(int cols, int rows)
 
 	win.mode = MODE_NUMLOCK;
 	resettitle();
-	XMapWindow(xw.dpy, xw.win);
 	xhints();
+	XMapWindow(xw.dpy, xw.win);
 	XSync(xw.dpy, False);
 
 	clock_gettime(CLOCK_MONOTONIC, &xsel.tclick1);
