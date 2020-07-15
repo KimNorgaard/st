@@ -1,6 +1,6 @@
-pkgname=st
-pkgver=0.8.2
-pkgrel=10
+pkgname=st-kn
+pkgver=0.8.4
+pkgrel=1
 pkgdesc="My own fork of st"
 url="https://st.suckless.org/"
 arch=('x86_64')
